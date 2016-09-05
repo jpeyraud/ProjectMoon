@@ -28,9 +28,12 @@ public class Grab : MonoBehaviour
 			objectSelected = objectCollided;
 
 			// create a fixed joint on the provided attach point
+			objectSelected.transform.parent = null;
 			objectSelected.transform.position = attachPoint.transform.position;
 			joint = objectSelected.AddComponent<FixedJoint>();
 			joint.connectedBody = attachPoint;
+			objectSelected.GetComponent<Rigidbody>().isKinematic = false;
+			objectSelected.GetComponent<Rigidbody>().useGravity = true;
 		}
 		else if (joint != null && device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger))
 		{
