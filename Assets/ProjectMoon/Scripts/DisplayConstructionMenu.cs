@@ -45,14 +45,14 @@ public class DisplayConstructionMenu : MonoBehaviour {
 		constructionMenu.transform.rotation = transform.rotation;
 
 		// List of the prefabs to instantiate inside the contruction menu
-		miniConstructionsName.Add ("woodcutter_mini");
-		miniConstructionsName.Add ("mine_mini");
-		miniConstructionsName.Add ("barracks_mini");
-		miniConstructionsName.Add ("house_mini");
+		miniConstructionsName.Add ("woodcutter");
+		miniConstructionsName.Add ("mine");
+		miniConstructionsName.Add ("barracks");
+		miniConstructionsName.Add ("house");
 
 		// Generate the mini constructions and set them at the proper position inside the menu
 		for(int i = 0; i < miniConstructionsName.Count; i++) {
-			GameObject newGo = Instantiate(Resources.Load("Mini/"+miniConstructionsName[i]),  constructionMenu.transform.position,  constructionMenu.transform.rotation, constructionMenu.transform) as GameObject;
+			GameObject newGo = Instantiate(Resources.Load("Prefabs/"+miniConstructionsName[i]),  constructionMenu.transform.position,  constructionMenu.transform.rotation, constructionMenu.transform) as GameObject;
 			miniConstructions.Add (newGo);
 			newGo.transform.localPosition = new Vector3(i*spacing, 0,0);
 			newGo.GetComponent<Rigidbody>().useGravity = false;

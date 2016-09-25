@@ -3,9 +3,9 @@ using System.Collections;
 
 public class GenerateConstructionAreas : MonoBehaviour {
 
-    public GameObject AreaPrefab = null;
-    public float Spacing = 0.2f;
-    public float PositionShift = 1f;
+    public GameObject areaPrefab = null;
+    public float spacing = 0.2f;
+    public float positionShift = 1f;
 
     private static int itemCount = 9;
     private static int itemPerLine = 3;
@@ -16,10 +16,11 @@ public class GenerateConstructionAreas : MonoBehaviour {
     void Start () {
 		buildAreasList = new ArrayList();
 
-		if (AreaPrefab != null) {
+		if (areaPrefab != null) {
 			for (int i=0; i< itemCount; i++) {
-				GameObject go = Instantiate(AreaPrefab, gameObject.transform) as GameObject;
-				go.transform.position = new Vector3((i % itemPerLine - 1f) * (PositionShift + Spacing), 0.01f, (i / itemPerLine - 1f) * (PositionShift + Spacing));
+				GameObject go = Instantiate(areaPrefab, gameObject.transform) as GameObject;
+				go.transform.position = new Vector3((i % itemPerLine - 1f) * (positionShift + spacing), 0.01f, (i / itemPerLine - 1f) * (positionShift + spacing));
+				go.name = "ConstructionArea"+i;
 				buildAreasList.Add(go);
 			}
 		}
