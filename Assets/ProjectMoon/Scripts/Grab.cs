@@ -42,12 +42,11 @@ public class Grab : MonoBehaviour
 			Object.DestroyImmediate(joint);
 			joint = null;
 			objectSelected = null;
+		
+			// Apply contruction script on collision
+			go.AddComponent<ConstructOnCollision>();
 
-			// We should probably apply the offset between trackedObj.transform.position
-			// and device.transform.pos to insert into the physics sim at the correct
-			// location, however, we would then want to predict ahead the visual representation
-			// by the same amount we are predicting our render poses.
-
+			// Throw Object
 			var origin = trackedObj.origin ? trackedObj.origin : trackedObj.transform.parent;
 			if (origin != null)
 			{
