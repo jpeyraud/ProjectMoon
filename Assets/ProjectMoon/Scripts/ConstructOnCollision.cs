@@ -23,6 +23,8 @@ public class ConstructOnCollision : MonoBehaviour {
 				gameObject.GetComponent<Rigidbody>().useGravity = false;
 				gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+				gameObject.tag = "Construction";
+
 				collider.GetComponent<ConstructionAreaBehavior> ().isAvailable = false;
 			}
 		}
