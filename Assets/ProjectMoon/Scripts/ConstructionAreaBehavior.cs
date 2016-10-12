@@ -3,7 +3,17 @@ using System.Collections;
 
 public class ConstructionAreaBehavior : MonoBehaviour {
 
-	public bool isAvailable;
+	private bool isAvailable;
+	public bool IsAvailable { 
+		get{ 
+			return isAvailable; 
+		}
+		set{ 
+			isAvailable = value;
+			if(!isAvailable)
+				transform.parent.GetComponent<RessourcesManager>().addWoodGenerator (); 
+		}
+	}
 
 	// Use this for initialization
 	void Start () {

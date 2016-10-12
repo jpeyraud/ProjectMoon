@@ -14,6 +14,7 @@ public class GenerateConstructionAreas : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
 		buildAreasList = new ArrayList();
 
 		if (areaPrefab != null) {

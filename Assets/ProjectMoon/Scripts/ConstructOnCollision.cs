@@ -16,7 +16,7 @@ public class ConstructOnCollision : MonoBehaviour {
 	void OnTriggerEnter(Collider collider)
 	{
 		if (collider.tag == "ConstructionArea") {
-			if (collider.GetComponent<ConstructionAreaBehavior> ().isAvailable) {
+			if (collider.GetComponent<ConstructionAreaBehavior> ().IsAvailable) {
 				transform.position = collider.transform.position;
 				transform.rotation = collider.transform.rotation;
 				transform.localScale *= 7f;
@@ -25,7 +25,7 @@ public class ConstructOnCollision : MonoBehaviour {
 
 				gameObject.tag = "Construction";
 
-				collider.GetComponent<ConstructionAreaBehavior> ().isAvailable = false;
+				collider.GetComponent<ConstructionAreaBehavior> ().IsAvailable = false;
 			}
 		}
 	}
