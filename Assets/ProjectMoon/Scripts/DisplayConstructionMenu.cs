@@ -5,10 +5,13 @@ public class DisplayConstructionMenu : MonoBehaviour {
 
 	public int itemPerLine = 4;
 	public float spacing = 0.15f;
+	public GameObject gameInterface;
 
 	private List<GameObject> miniConstructions;
 	private List<string> miniConstructionsName;
 	private GameObject constructionMenu;
+
+	private Quaternion menuOrientation;
 
 	private SteamVR_TrackedObject trackedObj;
 
@@ -18,6 +21,8 @@ public class DisplayConstructionMenu : MonoBehaviour {
 
 		miniConstructions = new List<GameObject>();
 		miniConstructionsName = new List<string>();
+
+		menuOrientation = Quaternion.Euler (-50, 180, 0);
 	}
 	
 	// Update is called once per frame
@@ -27,11 +32,15 @@ public class DisplayConstructionMenu : MonoBehaviour {
 		// Display the construction menu when the ApplicationMenu button is held pressed, else delete it
 		if(device.GetTouchDown(SteamVR_Controller.ButtonMask.ApplicationMenu)) {
 			generateConstructionList ();
+			gameInterface.SetActive (true);
 		}
 		else if (constructionMenu != null && !device.GetTouch(SteamVR_Controller.ButtonMask.ApplicationMenu)) {
 			miniConstructionsName.Clear();
 			miniConstructions.Clear();
+			gameInterface.SetActive (false);
+			gameInterface.transform.parent = null;
 			Destroy(constructionMenu);
+
 		}
 	}
 		
@@ -56,15 +65,23 @@ public class DisplayConstructionMenu : MonoBehaviour {
 		miniConstructionsName.Add ("oracle");
 		miniConstructionsName.Add ("throne");
 
+
 		// Generate the mini constructions and set them at the proper position inside the menu
-		float verticalStartPos = spacing*(miniConstructionsName.Count/itemPerLine);
+		float margin = 0.5f*spacing;
+		float verticalStartPos = spacing*(miniConstructionsName.Count/itemPerLine) + margin;
 		for(int i = 0; i < miniConstructionsName.Count; i++) {
 			GameObject newGo = Instantiate(Resources.Load("Prefabs/"+miniConstructionsName[i]),  constructionMenu.transform.position,  constructionMenu.transform.rotation, constructionMenu.transform) as GameObject;
 			miniConstructions.Add (newGo);
-			newGo.transform.localPosition = new Vector3((i%itemPerLine)*spacing, verticalStartPos-(i/itemPerLine)*spacing ,0);
-			newGo.transform.localRotation = Quaternion.Euler(0,180,0);
+			newGo.transform.localPosition = new Vector3((i%itemPerLine)*spacing, 0, verticalStartPos-(i/itemPerLine)*spacing);
+			newGo.transform.localRotation = menuOrientation;
 			newGo.GetComponent<Rigidbody>().useGravity = false;
 			newGo.GetComponent<Rigidbody>().isKinematic = true;
 		}
+
+		// Instantiate the game interface
+		gameInterface.transform.SetParent(constructionMenu.transform);
+		gameInterface.transform.localPosition = new Vector3 ((itemPerLine-1)*spacing/2f, 0, verticalStartPos + spacing + margin);
+		gameInterface.transform.localRotation = menuOrientation;
+		gameInterface.transform.Rotate (0, 180, 0);
 	}
 }

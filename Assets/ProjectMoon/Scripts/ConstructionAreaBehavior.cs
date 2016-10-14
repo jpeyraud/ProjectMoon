@@ -3,17 +3,7 @@ using System.Collections;
 
 public class ConstructionAreaBehavior : MonoBehaviour {
 
-	private bool isAvailable;
-	public bool IsAvailable { 
-		get{ 
-			return isAvailable; 
-		}
-		set{ 
-			isAvailable = value;
-			if(!isAvailable)
-				transform.parent.GetComponent<RessourcesManager>().addWoodGenerator (); 
-		}
-	}
+	public bool isAvailable;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +13,20 @@ public class ConstructionAreaBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void addGenerator(GeneratorType type)  {
+		switch (type) {
+		case GeneratorType.Wood :
+			transform.parent.GetComponent<RessourcesManager>().addWoodGenerator (); 
+			break;
+		case GeneratorType.Stone :
+			transform.parent.GetComponent<RessourcesManager>().addStoneGenerator (); 
+			break;
+		case GeneratorType.Iron :
+			transform.parent.GetComponent<RessourcesManager>().addIronGenerator (); 
+			break;
+		}
 	}
 
 }
